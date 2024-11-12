@@ -5,7 +5,8 @@ namespace HotelApp.Views
 {
     public partial class FormCustomer : Form
     {
-        Customer selectedCustomer = new();
+        private Customer selectedCustomer = new();
+        private readonly CustomerRepo repo = new();
         public FormCustomer()
         {
             InitializeComponent();
@@ -19,50 +20,50 @@ namespace HotelApp.Views
 
         private void buttonUpdateCustomer_Click(object sender, EventArgs e)
         {
-            selectedCustomer.FullName = textBoxFullName.Text.Trim();
-            selectedCustomer.Address = textBoxAddress.Text.Trim();
-            selectedCustomer.PostalCode = int.Parse(textBoxPostalCode.Text.Trim());
-            selectedCustomer.City = textBoxCity.Text.Trim();
-            selectedCustomer.Country = textBoxCountry.Text.Trim();
-            selectedCustomer.Phone = textBoxPhoneNumber.Text.Trim();
-            selectedCustomer.Email = textBoxEmail.Text.Trim();
+            int parsedPostalCode = int.TryParse(textBoxPostalCode.Text.Replace(" ", ""), out int postalCode) ? postalCode : 0;
 
-            CustomerRepo customerRepo = new();
-            customerRepo.UpdateCustomer(selectedCustomer);
+            if (parsedPostalCode == 0)
+            {
+                MessageBox.Show("You did not enter a valid Postal Code with only numbers.");
+            }
+            else
+            {
+                UpdateCustomerFields(selectedCustomer, parsedPostalCode);
 
-            MessageBox.Show("Customer updated successfully.");
+                repo.UpdateCustomer(selectedCustomer);
 
-            ClearAllFields();
+                MessageBox.Show("Customer updated successfully.");
+
+                ClearAllFields();
+            }
         }
 
         private void buttonAddNewCustomer_Click(object sender, EventArgs e)
         {
-            Customer newCustomer = new()
-            {
-                FullName = textBoxFullName.Text.Trim(),
-                Address = textBoxAddress.Text.Trim(),
-                PostalCode = int.Parse(textBoxPostalCode.Text.Trim()),
-                City = textBoxCity.Text.Trim(),
-                Country = textBoxCountry.Text.Trim(),
-                Phone = textBoxPhoneNumber.Text.Trim(),
-                Email = textBoxEmail.Text.Trim(),
-            };
-
+            Customer newCustomer = new();
             selectedCustomer = newCustomer;
 
-            CustomerRepo customerRepo = new();
-            customerRepo.AddCustomer(selectedCustomer);
+            int parsedPostalCode = int.TryParse(textBoxPostalCode.Text.Replace(" ", ""), out int postalCode) ? postalCode : 0;
 
-            MessageBox.Show("Customer saved.");
+            if (parsedPostalCode == 0)
+            {
+                MessageBox.Show("You did not enter a valid Postal Code with only numbers.");
+            }
+            else
+            {
+                UpdateCustomerFields(newCustomer, parsedPostalCode);
 
-            ClearAllFields();
+                repo.AddCustomer(selectedCustomer);
+
+                MessageBox.Show("Customer saved.");
+
+                ClearAllFields();
+            }
         }
 
         private void buttonRemoveCustomer_Click(object sender, EventArgs e)
         {
-            CustomerRepo _context = new();
-
-            _context.DeleteCustomer(selectedCustomer);
+            repo.DeleteCustomer(selectedCustomer);
 
             ClearAllFields();
         }
@@ -91,6 +92,16 @@ namespace HotelApp.Views
             textBoxCountry.Text = selectedCustomer.Country.ToString();
             textBoxPhoneNumber.Text = selectedCustomer.Phone.ToString();
             textBoxEmail.Text = selectedCustomer.Email.ToString();
+        }
+        private void UpdateCustomerFields(Customer customer, int postalCode)
+        {
+            customer.FullName = textBoxFullName.Text.Trim();
+            customer.Address = textBoxAddress.Text.Trim();
+            customer.PostalCode = postalCode;
+            customer.City = textBoxCity.Text.Trim();
+            customer.Country = textBoxCountry.Text.Trim();
+            customer.Phone = textBoxPhoneNumber.Text.Trim();
+            customer.Email = textBoxEmail.Text.Trim();
         }
     }
 }
