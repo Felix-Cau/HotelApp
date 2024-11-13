@@ -35,7 +35,6 @@ namespace HotelApp.Repository.Repos
                 PaymentStatus = "unpaid"
             };
 
-
             _context.Bookings.Add(newBooking);
 
             _context.SaveChanges();
@@ -44,8 +43,8 @@ namespace HotelApp.Repository.Repos
         public List<Booking> GetBookingsByCustomerName(string textBoxSearchString)
         {
             var bookingList = _context.Bookings.Include(b => b.Customer).Include(b => b.Room).ThenInclude(r => r.RoomType)
-                                                .Where(b => b.Customer.FullName.Contains(textBoxSearchString.Trim()))
-                                                .AsNoTracking().ToList();
+                                               .Where(b => b.Customer.FullName.Contains(textBoxSearchString.Trim()))
+                                               .AsNoTracking().ToList();
             return bookingList;
         }
 

@@ -26,7 +26,7 @@ namespace HotelApp.Views
         {
             selectedBooking = (Booking)listBoxSearchBookingResult.SelectedItem;
 
-            ComboBoxHelper.ChangeNumberOfGuests((RoomType)selectedBooking.Room.RoomType, comboBoxAmountOfGuests, (int)selectedBooking.Guests);
+            ComboBoxHelper.ChangeNumberOfGuests(selectedBooking.Room.RoomType, comboBoxAmountOfGuests, selectedBooking.Guests);
             textBoxRoom.Text = selectedBooking.Room.RoomName.ToString();
             textBoxCustomer.Text = selectedBooking.Customer.FullName.ToString();
             textBoxTotalPrice.Text = selectedBooking.TotalPrice.ToString();

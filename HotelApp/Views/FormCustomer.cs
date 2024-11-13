@@ -83,6 +83,7 @@ namespace HotelApp.Views
         {
             this.Hide();
         }
+
         private void LoadSelectedCustomer()
         {
             textBoxFullName.Text = selectedCustomer.FullName;
@@ -93,6 +94,7 @@ namespace HotelApp.Views
             textBoxPhoneNumber.Text = selectedCustomer.Phone.ToString();
             textBoxEmail.Text = selectedCustomer.Email.ToString();
         }
+
         private void UpdateCustomerFields(Customer customer, int postalCode)
         {
             customer.FullName = textBoxFullName.Text.Trim();
