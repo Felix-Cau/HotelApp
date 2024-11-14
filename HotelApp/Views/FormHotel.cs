@@ -163,6 +163,9 @@ namespace HotelApp.Views
             listBoxSearchCustomerResult.DataSource = new List<string>();
         }
 
-        
+        private void buttonReset_Click(object sender, EventArgs e)
+        {
+            ResetBookingProcedure();
+        }
     }
 }

@@ -78,6 +78,7 @@
             buttonContactSupport = new Button();
             labelExtraBeds = new Label();
             comboBoxExtraBeds = new ComboBox();
+            buttonReset = new Button();
             SuspendLayout();
             // 
             // textBoxSearchForGuest
@@ -523,11 +524,22 @@
             comboBoxExtraBeds.Size = new Size(63, 23);
             comboBoxExtraBeds.TabIndex = 49;
             // 
+            // buttonReset
+            // 
+            buttonReset.Location = new Point(763, 487);
+            buttonReset.Name = "buttonReset";
+            buttonReset.Size = new Size(155, 23);
+            buttonReset.TabIndex = 50;
+            buttonReset.Text = "Reset booking procedure";
+            buttonReset.UseVisualStyleBackColor = true;
+            buttonReset.Click += buttonReset_Click;
+            // 
             // FormHotel
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(934, 601);
+            Controls.Add(buttonReset);
             Controls.Add(comboBoxExtraBeds);
             Controls.Add(labelExtraBeds);
             Controls.Add(buttonContactSupport);
@@ -636,5 +648,6 @@
         private Button buttonContactSupport;
         private Label labelExtraBeds;
         private ComboBox comboBoxExtraBeds;
+        private Button buttonReset;
     }
 }
